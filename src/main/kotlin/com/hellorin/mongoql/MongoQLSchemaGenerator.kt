@@ -1,17 +1,19 @@
 package com.hellorin.mongoql
 
 import com.hellorin.mongoql.db.MongoDBParams
+import com.hellorin.mongoql.db.MongoSchemaIntrospector
 import com.hellorin.mongoql.db.variety.VarietyMongoSchemaIntrospector
 import com.hellorin.mongoql.graphql.GraphQLParams
 import com.hellorin.mongoql.graphql.GraphQLSchemaBuilder
 
-object MongoQLSchemaGenerator {
-    private val mongoSchemaIntrospector = VarietyMongoSchemaIntrospector()
+public class MongoQLSchemaGenerator(
+        private val mongoSchemaIntrospector: MongoSchemaIntrospector = VarietyMongoSchemaIntrospector(),
+        private val schemaBuilder: GraphQLSchemaBuilder = GraphQLSchemaBuilder()) {
 
     fun generate(mongoDBParams: MongoDBParams, graphQLParams: GraphQLParams): List<Type> {
         val introspectedMongoSchema = mongoSchemaIntrospector.readAndParseMongoSchema(mongoDBParams)
 
-        return GraphQLSchemaBuilder.build(graphQLParams, introspectedMongoSchema)
+        return schemaBuilder.build(graphQLParams, introspectedMongoSchema)
     }
 }
 

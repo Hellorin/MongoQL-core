@@ -5,7 +5,7 @@ import com.hellorin.mongoql.Type
 import com.hellorin.mongoql.TypeMapper
 import com.hellorin.mongoql.db.ModelPathJson
 
-internal object GraphQLSchemaBuilder {
+class GraphQLSchemaBuilder() {
     fun build(graphQLParams: GraphQLParams, parsedMongoSchema: List<ModelPathJson>) : List<Type> {
         // Index parsed object by path
         val indexedByPath = parsedMongoSchema.associateBy { it._id.key }

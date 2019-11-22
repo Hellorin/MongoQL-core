@@ -5,7 +5,7 @@ import com.hellorin.mongoql.graphql.GraphQLParams
 
 fun main() {
     print(
-        MongoQLSchemaGenerator.generate(
+        MongoQLSchemaGenerator().generate(
                 MongoDBParams.Builder().build(),
                 GraphQLParams.Builder().rootName("Person").build()
         )
