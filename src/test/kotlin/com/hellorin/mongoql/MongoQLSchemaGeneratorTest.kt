@@ -3,6 +3,7 @@ package com.hellorin.mongoql
 import com.hellorin.mongoql.db.ModelPathJson
 import com.hellorin.mongoql.db.MongoDBParams
 import com.hellorin.mongoql.db.MongoSchemaIntrospector
+import com.hellorin.mongoql.db.variety.VarietyMongoSchemaIntrospector
 import com.hellorin.mongoql.graphql.GraphQLParams
 import com.hellorin.mongoql.graphql.GraphQLSchemaBuilder
 import org.assertj.core.api.Assert
@@ -14,9 +15,9 @@ import java.util.*
 class MongoQLSchemaGeneratorTest {
 
     @Test
-    fun `test`() {
+    fun `test schema generator `() {
         // Given
-        val mongoSchemaIntrospectorMock = Mockito.mock(MongoSchemaIntrospector::class.java)
+        val mongoSchemaIntrospectorMock = Mockito.mock(VarietyMongoSchemaIntrospector::class.java)
         val schemaBuilderMock = Mockito.mock(GraphQLSchemaBuilder::class.java)
         val mongoQLSchemaGenerator = MongoQLSchemaGenerator(mongoSchemaIntrospectorMock, schemaBuilderMock)
 

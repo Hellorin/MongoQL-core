@@ -1,4 +1,7 @@
 package com.hellorin.mongoql.db
 
-interface ModelMapper {
+import com.hellorin.mongoql.db.variety.VarietyModelPathJson
+
+interface ModelMapper<T> {
+    fun map(models: List<T>) : List<ModelPathJson>
 }

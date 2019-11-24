@@ -5,8 +5,8 @@ import com.hellorin.mongoql.db.ModelMapper
 import com.hellorin.mongoql.db.ModelPathJson
 import com.hellorin.mongoql.db.ValueJson
 
-internal class VarietyModelMapper : ModelMapper {
-    fun map(models: List<VarietyModelPathJson>) : List<ModelPathJson> = models.map { map(it) }
+internal class VarietyModelMapper : ModelMapper<VarietyModelPathJson> {
+    override fun map(models: List<VarietyModelPathJson>) : List<ModelPathJson> = models.map { map(it) }
 
     private fun map(model: VarietyModelPathJson) : ModelPathJson = ModelPathJson(
             map(model._id),

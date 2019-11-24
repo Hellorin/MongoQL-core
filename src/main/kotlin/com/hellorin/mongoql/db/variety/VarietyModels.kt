@@ -1,5 +1,7 @@
 package com.hellorin.mongoql.db.variety
 
+import com.fasterxml.jackson.databind.ObjectMapper
+
 internal class VarietyIdJson(var key: String) {
     constructor(): this(key = "") // For JSON
 
@@ -12,4 +14,9 @@ internal class VarietyValueJson(var types: Map<String, Int>) {
 
 internal class VarietyModelPathJson(var _id: VarietyIdJson, var value: VarietyValueJson, var totalOccurrences: Int, var percentContaining: Double) {
     constructor(): this(VarietyIdJson(), VarietyValueJson(), 0, 0.0)
+}
+
+fun main() {
+    print(ObjectMapper().writeValueAsString(VarietyModelPathJson()))
+
 }
