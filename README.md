@@ -6,11 +6,45 @@ In a nutshell, the purpose of this tool is to generate a GraphQL schema based on
 ## How to use
 Note that this tool has been named **MongoQL-core** since it doesn't have much purpose alone. However, it is the foundation of the concept. In fact, a GraphQL schema can be useful to describe a contract but alone it's not executable. This tool would/should be used conjointly with another tool in order to generate the GraphQL data fetchers required.
 
-However, one can use it using the jar arguments or by cloning this repository and using the main.
+### Requirements
+Since Variety uses the mongo shell to connect to the database for introspection, one must install it and make it available through the command line or terminal. Please look on [here](https://docs.mongodb.com/manual/administration/install-community/) for a full description on how to install the mongo shell
+
+### Standalone jar
+One can use it using the jar arguments or by cloning this repository and using the main.
 
 The command line jar execution uses the following syntax:
 ```
-java -jar mongoql-core.jar *hostname* *port* *databaseName* *collectionName*
+java -jar mongoql-core-1.0.0-SNAPSHOT.jar *databaseName* *collectionName* *graphQLRootName*
+```
+
+### Full example
+Here is described exactly how to get a running example of MongoQL-core:
+
+__Step 1__: Create a MongoDB database locally and create/populate a collection
+Open a terminal or a command line and connect to Mongo locally with:
+```
+mongo
+```
+Now you can populate data into a database/collection:
+```
+use myDatabase
+db.myCollection.insertOne({"name": "David", "age":32})
+db.myCollection.insertOne({"name": "Mathieu", "age":32})
+db.myCollection.insertOne({"name": "Nuno", "age":32})
+db.myCollection.insertOne({"name": "Kevin"})
+db.myCollection.insertOne({"name": "Michael", "child": {"name" : "L", "age":1}})
+```
+
+__Step 2__: Compile the jar
+Compile it using maven:
+```
+mvn clean install
+```
+
+__Step 3__: Execute jar
+Execute it with the following command
+```
+java -jar mongoql-core-1.0.0-SNAPSHOT myDatabase myCollection Person
 ```
 
 ## Current Limitations
