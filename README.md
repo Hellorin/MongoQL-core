@@ -2,5 +2,7 @@
 
 ## Technologies
 - Kotlin
+- Mockito
+- JUnit
 - Jackson
-- Variety
+- Variety ([https://github.com/variety/variety](https://github.com/variety/variety))
