@@ -7,7 +7,7 @@ import com.hellorin.mongoql.graphql.GraphQLParams
 import com.hellorin.mongoql.graphql.GraphQLSchemaBuilder
 import java.lang.UnsupportedOperationException
 
-public class MongoQLSchemaGenerator(
+class MongoQLSchemaGenerator(
         private val mongoSchemaIntrospector: MongoSchemaIntrospector = VarietyMongoSchemaIntrospector(),
         private val schemaBuilder: GraphQLSchemaBuilder = GraphQLSchemaBuilder()) {
 
