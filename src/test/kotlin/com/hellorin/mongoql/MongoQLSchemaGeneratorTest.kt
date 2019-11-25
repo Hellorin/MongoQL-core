@@ -21,8 +21,8 @@ class MongoQLSchemaGeneratorTest {
         val schemaBuilderMock = Mockito.mock(GraphQLSchemaBuilder::class.java)
         val mongoQLSchemaGenerator = MongoQLSchemaGenerator(mongoSchemaIntrospectorMock, schemaBuilderMock)
 
-        val mongoDbParamsMock = MongoDBParams.Builder().build()
-        val graphqlParamsMock = GraphQLParams.Builder().build()
+        val mongoDbParamsMock = MongoDBParams.Builder("test", "col").build()
+        val graphqlParamsMock = GraphQLParams.Builder("root").build()
 
         val model = Mockito.mock(ModelPathJson::class.java)
         Mockito.`when`(mongoSchemaIntrospectorMock.readAndParseMongoSchema(mongoDbParamsMock)).thenReturn(Collections.singletonList(model))

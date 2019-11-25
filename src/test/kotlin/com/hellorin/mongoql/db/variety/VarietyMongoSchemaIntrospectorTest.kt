@@ -17,7 +17,7 @@ class VarietyMongoSchemaIntrospectorTest {
     @Test
     fun `test variety introspector`() {
         // Given
-        val params = MongoDBParams.Builder().build()
+        val params = MongoDBParams.Builder("db", "col").build()
 
         val model = Mockito.mock(ModelPathJson::class.java)
         val mapper = object : ModelMapper<VarietyModelPathJson> {

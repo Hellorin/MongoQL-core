@@ -4,8 +4,10 @@ import com.hellorin.mongoql.Attribute
 import com.hellorin.mongoql.Type
 import com.hellorin.mongoql.TypeMapper
 import com.hellorin.mongoql.db.ModelPathJson
+import java.lang.UnsupportedOperationException
 
 class GraphQLSchemaBuilder() {
+
     fun build(graphQLParams: GraphQLParams, parsedMongoSchema: List<ModelPathJson>) : List<Type> {
         // Index parsed object by path
         val indexedByPath = parsedMongoSchema.associateBy { it._id.key }
@@ -26,7 +28,12 @@ class GraphQLSchemaBuilder() {
 
             val parentPath = split.take(split.size-1).joinToString( separator = ".")
 
-            val attributeTypes = it.value.types.keys.map { type -> TypeMapper.adaptType(attributeName, type) }.toSet()
+            val attributeTypes = it.value.types.keys.filter { type -> "null" != type }.map { type -> TypeMapper.adaptType(attributeName, type) }.toSet()
+            if (attributeTypes.size > 1) {
+                // Currently unsupported
+                throw UnsupportedOperationException()
+            }
+
             val isNullable = !it.percentContaining.equals(indexedByPath[parentPath]?.percentContaining ?: 100.0)
                     || it.value.types.keys.any { type -> Type.isNull(type) }
 
