@@ -4,11 +4,15 @@ import com.hellorin.mongoql.Attribute
 import com.hellorin.mongoql.Type
 import com.hellorin.mongoql.TypeMapper
 import com.hellorin.mongoql.db.ModelPathJson
+import mu.KotlinLogging
 import java.lang.UnsupportedOperationException
 
 class GraphQLSchemaBuilder() {
+    private val logger = KotlinLogging.logger {}
 
     fun build(graphQLParams: GraphQLParams, parsedMongoSchema: List<ModelPathJson>) : List<Type> {
+        logger.info { "Building our type from the introspected models" }
+
         // Index parsed object by path
         val indexedByPath = parsedMongoSchema.associateBy { it._id.key }
 
@@ -47,6 +51,10 @@ class GraphQLSchemaBuilder() {
             typesMap[parent] = attributesList
         }
 
-        return typesMap.entries.map { Type(it.key, it.value.toList()) }
+        val mappedTypes = typesMap.entries.map { Type(it.key, it.value.toList()) }
+
+        logger.info { "GraphQL model is ready to be printed" }
+
+        return mappedTypes
     }
 }
