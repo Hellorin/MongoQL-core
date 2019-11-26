@@ -36,12 +36,14 @@ db.myCollection.insertOne({"name": "Michael", "child": {"name" : "L", "age":1}})
 ```
 
 __Step 2__: Compile the jar
+
 Compile it using maven:
 ```
 mvn clean install
 ```
 
 __Step 3__: Execute jar
+
 Execute it with the following command
 ```
 java -jar mongoql-core-1.0.0-SNAPSHOT myDatabase myCollection Person
