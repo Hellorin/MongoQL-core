@@ -46,7 +46,22 @@ __Step 3__: Execute jar
 
 Execute it with the following command
 ```
-java -jar mongoql-core-1.0.0-SNAPSHOT myDatabase myCollection Person
+java -jar mongoql-core-1.0.0-SNAPSHOT-jar-with-dependencies.jar myDatabase myCollection Person
+```
+__Result__:
+```
+type Child {
+        age : Int
+        name : String
+}
+
+type Person {
+        _id : ID
+        name : String
+        age : Int!
+        child : Child!
+}
+
 ```
 
 ## Current Limitations
@@ -57,6 +72,9 @@ Since MongoDB is schemaless, it enables fields to have multiple types. This tool
 
 ### Arrays
 The tool used to introspect the MongoDB schema of a collection isn't precise enough to give information of content of arrays. For now, it is out of scope of this tool.
+
+### Type recognition
+There might be schema with sub documents that are the same as other documents. One could determine an fields equivalence between types found to regroup into one type. In the full example above, the type **Child** is most probably a type Person and it should be only one type rather than two.
 
 ## Technologies
 - Kotlin
