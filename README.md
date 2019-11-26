@@ -56,7 +56,7 @@ Since it's in the early stages, there is, sadly, a couple limitations:
 Since MongoDB is schemaless, it enables fields to have multiple types. This tool should be able to handle this in a near future but currently it's not supported.
 
 ### Arrays
-The tool used to introspect the MongoDB schema of a collection isn't precise enough to give information of content of arrays. For now it is out of scope of this tool even though.
+The tool used to introspect the MongoDB schema of a collection isn't precise enough to give information of content of arrays. For now, it is out of scope of this tool.
 
 ## Technologies
 - Kotlin
