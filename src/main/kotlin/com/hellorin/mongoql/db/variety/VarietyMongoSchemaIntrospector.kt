@@ -6,8 +6,8 @@ import com.hellorin.mongoql.db.ModelMapper
 import com.hellorin.mongoql.db.ModelPathJson
 import com.hellorin.mongoql.db.MongoDBParams
 import com.hellorin.mongoql.db.MongoSchemaIntrospector
+import mu.KotlinLogging
 import java.io.BufferedReader
-import java.io.File
 import java.io.InputStreamReader
 import java.util.stream.Collectors
 
@@ -16,12 +16,20 @@ internal class VarietyMongoSchemaIntrospector(
         private val mongoShellExecutor: MongoVarietyShellExecutor = MongoVarietyShellExecutor()) : MongoSchemaIntrospector() {
     private val objectMapper = ObjectMapper()
 
+    private val logger = KotlinLogging.logger {}
+
     private fun introspectMongoSchema(mongoDBParams: MongoDBParams): String {
         val process = mongoShellExecutor.execute(mongoDBParams)
 
-        return BufferedReader(InputStreamReader(process.inputStream, Charsets.UTF_8)).use { br ->
-            return br.lines().collect(Collectors.joining(System.lineSeparator()))
+        val processOutput: String = BufferedReader(InputStreamReader(process.inputStream, Charsets.UTF_8)).use { br ->
+            br.lines().collect(Collectors.joining(System.lineSeparator()))
         }
+
+        if ("uncaught exception".toRegex().containsMatchIn(processOutput)) {
+            throw VarietyException("Unexpected error while introspecting MongoDB database/collection")
+        }
+
+        return processOutput
     }
 
     override fun readAndParseMongoSchema(mongoDBParams: MongoDBParams): List<ModelPathJson> {

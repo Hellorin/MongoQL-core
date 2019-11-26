@@ -1,8 +1,8 @@
 package com.hellorin.mongoql.db
 
 public class MongoDBParams private constructor(
-        val dbName: String?,
-        val colName: String?,
+        val dbName: String,
+        val colName: String,
         val host: String?,
         val username: String?,
         val password: String?
