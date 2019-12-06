@@ -31,7 +31,7 @@ internal object TypeMapper {
 class Attribute(val name: String,
                          val types: Set<String>,
                          val isNullable: Boolean) {
-    override fun toString() = "\t$name : ${types.iterator().next()}${if (isNullable) "!" else ""}"
+    override fun toString() = "\t$name : ${types.iterator().next()}${if (isNullable) "" else "!"}"
 }
 
 class Type(val typeName: String, val attributes: List<Attribute>) {

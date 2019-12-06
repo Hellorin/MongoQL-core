@@ -51,15 +51,15 @@ java -jar mongoql-core-1.0.0-SNAPSHOT-jar-with-dependencies.jar myDatabase myCol
 __Result__:
 ```
 type Child {
-        age : Int
-        name : String
+        age : Int!
+        name : String!
 }
 
 type Person {
-        _id : ID
-        name : String
-        age : Int!
-        child : Child!
+        _id : ID!
+        name : String!
+        age : Int
+        child : Child
 }
 
 ```
