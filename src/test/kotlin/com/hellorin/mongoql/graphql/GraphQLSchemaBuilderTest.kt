@@ -62,13 +62,13 @@ class GraphQLSchemaBuilderTest {
         assertThat(root.attributes.size).isEqualTo(3)
         assertThat(root.attributes[0].name).isEqualTo("id")
         assertThat(root.attributes[0].types).isEqualTo(Collections.singleton("ID"))
-        assertThat(root.attributes[0].isNullable).isEqualTo(false)
+        assertThat(root.attributes[0].nullable).isEqualTo(false)
         assertThat(root.attributes[1].name).isEqualTo("name")
         assertThat(root.attributes[1].types).isEqualTo(Collections.singleton("String"))
-        assertThat(root.attributes[1].isNullable).isEqualTo(false)
+        assertThat(root.attributes[1].nullable).isEqualTo(false)
         assertThat(root.attributes[2].name).isEqualTo("children")
         assertThat(root.attributes[2].types).isEqualTo(Collections.singleton("Children"))
-        assertThat(root.attributes[2].isNullable).isEqualTo(false)
+        assertThat(root.attributes[2].nullable).isEqualTo(false)
 
         var children = list.find { type -> "children" == type.typeName }
         assertThat(children).isNotNull()
@@ -77,7 +77,7 @@ class GraphQLSchemaBuilderTest {
         assertThat(children.attributes.size).isEqualTo(1)
         assertThat(children.attributes[0].name).isEqualTo("name")
         assertThat(children.attributes[0].types).isEqualTo(Collections.singleton("String"))
-        assertThat(children.attributes[0].isNullable).isEqualTo(true)
+        assertThat(children.attributes[0].nullable).isEqualTo(true)
     }
 
     @Test

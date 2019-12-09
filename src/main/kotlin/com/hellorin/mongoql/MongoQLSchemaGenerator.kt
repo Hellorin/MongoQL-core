@@ -30,8 +30,8 @@ internal object TypeMapper {
 
 class Attribute(val name: String,
                          val types: Set<String>,
-                         val isNullable: Boolean) {
-    override fun toString() = "\t$name : ${types.iterator().next()}${if (isNullable) "" else "!"}"
+                         val nullable: Boolean) {
+    override fun toString() = "\t$name : ${types.iterator().next()}${if (nullable) "" else "!"}"
 }
 
 class Type(val typeName: String, val attributes: List<Attribute>) {
@@ -41,7 +41,9 @@ ${attributes.joinToString(separator = "\n")}
 }"""
     }
 
+    fun isMainType() = attributes.any { it.name == "_id" }
+
     companion object {
-        fun isNull(type: String) : Boolean = type == "null"
+        fun isNull(type: String) = type == "null"
     }
 }
