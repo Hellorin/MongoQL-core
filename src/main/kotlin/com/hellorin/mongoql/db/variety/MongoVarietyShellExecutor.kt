@@ -3,20 +3,37 @@ package com.hellorin.mongoql.db.variety
 import com.hellorin.mongoql.db.MongoDBParams
 import java.io.File
 import java.nio.file.Files
-import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
 
 class MongoVarietyShellExecutor {
 
-    fun execute(mongoDBParams: MongoDBParams) : Process {
-        val processBuilder = ProcessBuilder()
-        processBuilder.command(
-                "mongo",
-                mongoDBParams.dbName,
+    private fun prepareCommandParameters(mongoDBParams: MongoDBParams): List<String> {
+        val parameters = mutableListOf("mongo",
+                mongoDBParams.dbName);
+        if (mongoDBParams.username != null && mongoDBParams.password != null) {
+            parameters.addAll(listOf(
+                    "--authenticationDatabase",
+                    "-u ${mongoDBParams.username}",
+                    "-p ${mongoDBParams.password}"
+            ));
+        }
+        parameters.addAll(listOf(
                 "--quiet",
                 "--eval",
                 "\"var collection= '${mongoDBParams.colName}', outputFormat='json'\"",
                 "variety.js")
+        )
+
+        return parameters
+    }
+
+    fun execute(mongoDBParams: MongoDBParams): Process {
+        val processBuilder = ProcessBuilder()
+
+        val parameters = prepareCommandParameters(mongoDBParams)
+
+        // Prepare the command
+        processBuilder.command(parameters)
 
         // Ease execution in JAR
         val tempFolderName = System.getProperty("java.io.tmpdir")
