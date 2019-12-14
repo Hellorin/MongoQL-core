@@ -12,10 +12,12 @@ class MongoVarietyShellExecutor {
                 mongoDBParams.dbName);
         if (mongoDBParams.username != null && mongoDBParams.password != null) {
             parameters.addAll(listOf(
-                    "--authenticationDatabase",
                     "-u ${mongoDBParams.username}",
                     "-p ${mongoDBParams.password}"
             ));
+        }
+        if (mongoDBParams.host != null) {
+            parameters.add("--host ${mongoDBParams.host}")
         }
         parameters.addAll(listOf(
                 "--quiet",

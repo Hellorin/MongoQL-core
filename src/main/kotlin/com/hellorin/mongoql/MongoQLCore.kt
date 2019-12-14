@@ -16,6 +16,7 @@ fun main(args: Array<String>) {
     - collectionName
     - graphQLRootName
     - [username:password]
+    - [host]
     - """)
     }
 
@@ -24,19 +25,16 @@ fun main(args: Array<String>) {
     val dbname = args[0]
     val collectionName = args[1]
     val rootName = args[2]
-    val (username, password) = if (args.size > 4) {
-        Pair(args[3], args[4])
-    } else {
-        Pair(null, null)
-    }
-
+    val (username, password) = if (args.size > 4) Pair(args[3], args[4]) else Pair(null, null)
+    val host = if (args.size > 5) args[5] else null
 
     val stringRepresentationGraphQLSchema = MongoQLSchemaGenerator().generate(
             MongoDBParams.Builder(
                     dbName = dbname,
                     colName = collectionName,
                     username = username,
-                    password = password
+                    password = password,
+                    host = host
             ).build(),
             GraphQLParams.Builder(rootName.capitalize()).build()
     ).joinToString(separator = "\n\n")
