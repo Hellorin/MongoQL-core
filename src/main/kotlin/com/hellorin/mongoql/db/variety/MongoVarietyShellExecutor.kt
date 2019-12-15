@@ -7,7 +7,7 @@ import java.nio.file.StandardCopyOption
 
 class MongoVarietyShellExecutor {
 
-    private fun prepareCommandParameters(mongoDBParams: MongoDBParams): List<String> {
+    private fun prepareCommandParameters(mongoDBParams: MongoDBParams): MutableList<String> {
         val parameters = mutableListOf("mongo",
                 mongoDBParams.dbName);
         if (mongoDBParams.username != null && mongoDBParams.password != null) {
@@ -16,9 +16,9 @@ class MongoVarietyShellExecutor {
                     "-p ${mongoDBParams.password}"
             ));
         }
-        if (mongoDBParams.host != null) {
+        /*if (mongoDBParams.host != null) {
             parameters.add("--host ${mongoDBParams.host}")
-        }
+        }*/
         parameters.addAll(listOf(
                 "--quiet",
                 "--eval",
