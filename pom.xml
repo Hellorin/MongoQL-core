@@ -2,17 +2,52 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
+    <!-- 1. basic informations -->
+    <modelVersion>4.0.0</modelVersion>
     <groupId>ch.hellorin.mongoql</groupId>
     <artifactId>mongoql-core</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+    <name>MongoQL-core</name>
+    <url>https://github.com/Hellorin/MongoQL-core</url>
+    <description>Mongo + GraphQL = MongoQL. Core library to generate a graphql schema based on a Mongo database' specific collection schema</description>
+
+    <!-- 2. scm information -->
+    <scm>
+        <connection>scm:git:ssh://github.com/Hellorin/MongoQL-core.git</connection>
+        <developerConnection>scm:git:ssh://github.com/Hellorin/MongoQL-core.git</developerConnection>
+        <url>https://github.com/Hellorin/MongoQL-core/tree/master</url>
+    </scm>
 
     <properties>
         <kotlin.version>1.3.50</kotlin.version>
         <main.class>com.hellorin.mongoql.MongoQLCoreKt</main.class>
         <junit-jupiter.version>5.4.2</junit-jupiter.version>
+
+        <maven.javadoc.plugin.version>3.0.1</maven.javadoc.plugin.version>
+        <maven.source.plugin.version>3.0.1</maven.source.plugin.version>
+        <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
+        <key.id>TO_FILL_WHEN_RECEIVED</key.id>
     </properties>
+
+    <!-- 3. licence information -->
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/Hellorin/MongoQL-core/blob/master/LICENSE</url>
+            <distribution>may be downloaded from the Maven repository</distribution>
+        </license>
+    </licenses>
+
+    <!-- 4. developers information -->
+    <developers>
+        <developer>
+            <name>David Lawrence</name>
+            <email>davi.lawrence@gmail.com</email>
+            <organization>David Lawrence</organization>
+            <organizationUrl>https://github.com/Hellorin</organizationUrl>
+        </developer>
+    </developers>
 
     <dependencies>
         <dependency>
@@ -86,6 +121,56 @@
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
         <plugins>
+            <!-- 5. sign all files with generated keys -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven.gpg.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <keyname>${key.id}</keyname>
+                            <passphraseServerId>${key.id}</passphraseServerId>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 6. attach source codes -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven.source.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 7. attach javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven.javadoc.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
@@ -148,4 +233,16 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- 8. repository for uploading -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>
