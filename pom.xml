@@ -27,7 +27,7 @@
         <maven.javadoc.plugin.version>3.0.1</maven.javadoc.plugin.version>
         <maven.source.plugin.version>3.0.1</maven.source.plugin.version>
         <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
-        <key.id>TO_FILL_WHEN_RECEIVED</key.id>
+        <key.id>EA0913BC9BF8747246A63B78F6771110950151B9</key.id>
     </properties>
 
     <!-- 3. licence information -->
