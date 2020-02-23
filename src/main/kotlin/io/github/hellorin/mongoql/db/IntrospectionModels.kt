@@ -1,15 +1,30 @@
 package io.github.hellorin.mongoql.db
 
-public class IdJson(var key: String) {
-    constructor(): this(key = "") // For JSON
+internal class IdJson(var key: String) {
+    /**
+     * Only for Jackson deserialization uses
+     */
+    internal constructor(): this(key = "") // For JSON
 
     fun pathLength(): Int = key.split(".").size
 }
 
-public class ValueJson(var types: Map<String, Int>) {
-    constructor() : this(mapOf())
+internal class ValueJson(var types: Map<String, Int>) {
+    /**
+     * Only for Jackson deserialization uses
+     */
+    internal constructor() : this(mapOf())
 }
 
-public class ModelPathJson(var _id: IdJson, var value: ValueJson, var totalOccurrences: Int, var percentContaining: Double) {
+/**
+ * @param _id
+ * @param value
+ * @param totalOccurrences
+ * @param percentContaining
+ */
+internal class ModelPathJson(var _id: IdJson, var value: ValueJson, var totalOccurrences: Int, var percentContaining: Double) {
+    /**
+     * Only for Jackson deserialization uses
+     */
     constructor(): this(IdJson(), ValueJson(), 0, 0.0)
 }

@@ -1,5 +1,5 @@
 package io.github.hellorin.mongoql.db
 
-interface ModelMapper<T> {
+internal interface ModelMapper<T> {
     fun map(models: List<T>): List<ModelPathJson>
 }

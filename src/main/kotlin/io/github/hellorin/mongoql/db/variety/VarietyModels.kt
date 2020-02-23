@@ -15,8 +15,3 @@ internal class VarietyValueJson(var types: Map<String, Int>) {
 internal class VarietyModelPathJson(var _id: VarietyIdJson, var value: VarietyValueJson, var totalOccurrences: Int, var percentContaining: Double) {
     constructor(): this(VarietyIdJson(), VarietyValueJson(), 0, 0.0)
 }
-
-fun main() {
-    print(ObjectMapper().writeValueAsString(VarietyModelPathJson()))
-
-}

@@ -20,6 +20,7 @@
     </scm>
 
     <properties>
+        <jvmTarget>11</jvmTarget>
         <kotlin.version>1.3.50</kotlin.version>
         <main.class>com.hellorin.mongoql.MongoQLCoreKt</main.class>
         <junit-jupiter.version>5.4.2</junit-jupiter.version>
@@ -156,6 +157,62 @@
                 </executions>
             </plugin>
 
+            <plugin>
+                <groupId>org.jetbrains.dokka</groupId>
+                <artifactId>dokka-maven-plugin</artifactId>
+                <version>0.10.1</version>
+                <executions>
+                    <execution>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>javadocJar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+
+                    <!-- Set to true to skip dokka task, default: false -->
+                    <skip>false</skip>
+
+                    <!-- See list of possible formats below -->
+                    <outputFormat>html</outputFormat>
+                    <!-- Default: ${project.basedir}/target/dokka -->
+                    <outputDir>some/out/dir</outputDir>
+
+                    <!-- Use default or set to custom path to cache directory to enable package-list caching. -->
+                    <!-- When set to default, caches stored in $USER_HOME/.cache/dokka -->
+                    <cacheRoot>default</cacheRoot>
+
+                    <!-- Used for linking to JDK, default: 6 -->
+                    <jdkVersion>6</jdkVersion>
+
+                    <!-- Do not output deprecated members, applies globally, can be overridden by packageOptions -->
+                    <skipDeprecated>false</skipDeprecated>
+                    <!-- Emit warnings about not documented members, applies globally, also can be overridden by packageOptions -->
+                    <reportUndocumented>true</reportUndocumented>
+                    <!-- Do not create index pages for empty packages -->
+                    <skipEmptyPackages>true</skipEmptyPackages>
+
+                    <!-- Short form list of sourceRoots, by default, set to ${project.compileSourceRoots} -->
+                    <sourceDirectories>
+                        <dir>src/main/kotlin</dir>
+                    </sourceDirectories>
+
+                    <!-- Full form list of sourceRoots -->
+                    <sourceRoots>
+                        <root>
+                            <path>src/main/kotlin</path>
+                        </root>
+                    </sourceRoots>
+
+                    <!-- Disable linking to online kotlin-stdlib documentation  -->
+                    <noStdlibLink>false</noStdlibLink>
+
+                    <!-- Disable linking to online JDK documentation -->
+                    <noJdkLink>false</noJdkLink>
+                </configuration>
+            </plugin>
+
             <!-- 7. attach javadoc -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -233,6 +290,14 @@
             </plugin>
         </plugins>
     </build>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jcenter</id>
+            <name>JCenter</name>
+            <url>https://jcenter.bintray.com/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <!-- 8. repository for uploading -->
     <distributionManagement>

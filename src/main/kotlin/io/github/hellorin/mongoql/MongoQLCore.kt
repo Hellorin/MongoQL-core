@@ -8,6 +8,9 @@ import java.util.*
 
 private val logger = KotlinLogging.logger {}
 
+/**
+ * Main used to test the generation of a GraphQL Schema from a MongoDB database/collection
+ */
 fun main(args: Array<String>) {
     if (args.size < 3) {
         throw IllegalArgumentException(

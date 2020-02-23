@@ -7,10 +7,20 @@ import io.github.hellorin.mongoql.db.ModelPathJson
 import mu.KotlinLogging
 import java.lang.UnsupportedOperationException
 
-class GraphQLSchemaBuilder() {
+/**
+ * A class that builds the GraphQLSchema from the introspected types and the GraphQL parameters
+ */
+class GraphQLSchemaBuilder {
     private val logger = KotlinLogging.logger {}
 
-    fun build(graphQLParams: GraphQLParams, parsedMongoSchema: List<ModelPathJson>) : List<Type> {
+    /**
+     * Builds the GraphQLSchema from the introspected types and the GraphQL parameters
+     *
+     * @param graphQLParams The software input GraphQL parameters
+     * @param parsedMongoSchema the parsed MongoDB schema
+     * @return A list of GraphQL types
+     */
+    internal fun build(graphQLParams: GraphQLParams, parsedMongoSchema: List<ModelPathJson>) : List<Type> {
         logger.info { "Building our type from the introspected models" }
 
         // Index parsed object by path
@@ -32,7 +42,10 @@ class GraphQLSchemaBuilder() {
 
             val parentPath = split.take(split.size-1).joinToString( separator = ".")
 
-            val attributeTypes = it.value.types.keys.filter { type -> "null" != type }.map { type -> TypeMapper.adaptType(attributeName, type) }.toSet()
+            val attributeTypes = it.value.types.keys
+                    .filter { type -> "null" != type }
+                    .map { type -> TypeMapper.adaptType(attributeName, type) }
+                    .toSet()
             if (attributeTypes.size > 1) {
                 // Currently unsupported
                 throw UnsupportedOperationException()

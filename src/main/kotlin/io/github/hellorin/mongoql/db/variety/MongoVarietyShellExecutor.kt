@@ -5,7 +5,7 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
-class MongoVarietyShellExecutor {
+internal class MongoVarietyShellExecutor {
 
     private fun prepareCommandParameters(mongoDBParams: MongoDBParams): MutableList<String> {
         val parameters = mutableListOf("mongo",
@@ -16,9 +16,7 @@ class MongoVarietyShellExecutor {
                     "-p ${mongoDBParams.password}"
             ));
         }
-        /*if (mongoDBParams.host != null) {
-            parameters.add("--host ${mongoDBParams.host}")
-        }*/
+
         parameters.addAll(listOf(
                 "--quiet",
                 "--eval",
