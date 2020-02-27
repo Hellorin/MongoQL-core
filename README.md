@@ -1,4 +1,5 @@
 # MongoQL-core
+[![Build Status](https://travis-ci.org/Hellorin/codility-lessons.svg?branch=master)](https://travis-ci.org/Hellorin/codility-lessons)
 
 ## Purpose
 In a nutshell, the purpose of this tool is to generate a GraphQL schema based on a MongoDB's collection.
