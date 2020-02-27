@@ -1,6 +1,6 @@
 package io.github.hellorin.mongoql.db
 
-internal class IdJson(var key: String) {
+class IdJson(var key: String) {
     /**
      * Only for Jackson deserialization uses
      */
@@ -9,7 +9,7 @@ internal class IdJson(var key: String) {
     fun pathLength(): Int = key.split(".").size
 }
 
-internal class ValueJson(var types: Map<String, Int>) {
+class ValueJson(var types: Map<String, Int>) {
     /**
      * Only for Jackson deserialization uses
      */
@@ -22,7 +22,7 @@ internal class ValueJson(var types: Map<String, Int>) {
  * @param totalOccurrences
  * @param percentContaining
  */
-internal class ModelPathJson(var _id: IdJson, var value: ValueJson, var totalOccurrences: Int, var percentContaining: Double) {
+class ModelPathJson(var _id: IdJson, var value: ValueJson, var totalOccurrences: Int, var percentContaining: Double) {
     /**
      * Only for Jackson deserialization uses
      */
