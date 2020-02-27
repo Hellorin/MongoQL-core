@@ -5,7 +5,7 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
-internal class MongoVarietyShellExecutor {
+internal open class MongoVarietyShellExecutor {
 
     private fun prepareCommandParameters(mongoDBParams: MongoDBParams): MutableList<String> {
         val parameters = mutableListOf("mongo",
@@ -27,30 +27,41 @@ internal class MongoVarietyShellExecutor {
         return parameters
     }
 
-    fun execute(mongoDBParams: MongoDBParams): Process {
-        val processBuilder = ProcessBuilder()
-
+    open fun execute(
+            mongoDBParams: MongoDBParams,
+            processStarter: ProcessStarter = ProcessStarter(),
+            varietyScriptCloner: VarietyScriptCloner = VarietyScriptCloner()): Process {
         val parameters = prepareCommandParameters(mongoDBParams)
-
-        // Prepare the command
-        processBuilder.command(parameters)
 
         // Ease execution in JAR
         val tempFolderName = System.getProperty("java.io.tmpdir")
-        copyVarietyScriptToTmpDirectory(tempFolderName)
-        processBuilder.directory(File(tempFolderName))
+        varietyScriptCloner.copyVarietyScriptToTmpDirectory(tempFolderName)
 
-        val process = processBuilder.start()
-        process.waitFor()
-        return process
+        // Call process
+        return processStarter.startAndWaitFor(File(tempFolderName), parameters)
     }
+}
 
-    private fun copyVarietyScriptToTmpDirectory(tempFolderName: String) {
+open class VarietyScriptCloner {
+    open fun copyVarietyScriptToTmpDirectory(filename: String){
         val tmpFile = File(System.getProperty("java.io.tmpdir") + File.separator + "variety.js")
         Files.copy(
                 MongoVarietyShellExecutor::class.java.classLoader.getResourceAsStream("variety.js")!!,
                 tmpFile.toPath(),
                 StandardCopyOption.REPLACE_EXISTING
         )
+    }
+}
+
+open class ProcessStarter {
+    open fun startAndWaitFor(directory: File, parameters: List<String>) : Process {
+        val processBuilder = ProcessBuilder()
+        processBuilder.command(parameters)
+        processBuilder.directory(directory)
+
+        val process = processBuilder.start()
+        process.waitFor()
+
+        return process
     }
 }

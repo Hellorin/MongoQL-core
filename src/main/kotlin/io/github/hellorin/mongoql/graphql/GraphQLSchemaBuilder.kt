@@ -10,7 +10,7 @@ import java.lang.UnsupportedOperationException
 /**
  * A class that builds the GraphQLSchema from the introspected types and the GraphQL parameters
  */
-class GraphQLSchemaBuilder {
+open class GraphQLSchemaBuilder {
     private val logger = KotlinLogging.logger {}
 
     /**
@@ -20,7 +20,7 @@ class GraphQLSchemaBuilder {
      * @param parsedMongoSchema the parsed MongoDB schema
      * @return A list of GraphQL types
      */
-    internal fun build(graphQLParams: GraphQLParams, parsedMongoSchema: List<ModelPathJson>) : List<Type> {
+    internal open fun build(graphQLParams: GraphQLParams, parsedMongoSchema: List<ModelPathJson>) : List<Type> {
         logger.info { "Building our type from the introspected models" }
 
         // Index parsed object by path

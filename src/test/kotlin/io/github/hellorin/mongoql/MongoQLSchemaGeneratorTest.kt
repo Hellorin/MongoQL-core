@@ -17,18 +17,20 @@ class MongoQLSchemaGeneratorTest {
     @Test
     fun `test schema generator `() {
         // Given
-        val mongoSchemaIntrospectorMock = Mockito.mock(VarietyMongoSchemaIntrospector::class.java)
-        val schemaBuilderMock = Mockito.mock(GraphQLSchemaBuilder::class.java)
+        val mongoSchemaIntrospectorMock = object : VarietyMongoSchemaIntrospector() {
+            val model = ModelPathJson()
+            override fun readAndParseMongoSchema(mongoDBParams: MongoDBParams): List<ModelPathJson> = Collections.singletonList(model)
+        }
+
+        val type = Type("type", emptyList())
+        val schemaBuilderMock = object : GraphQLSchemaBuilder() {
+            override fun build(graphQLParams: GraphQLParams, parsedMongoSchema: List<ModelPathJson>) = Collections.singletonList(type)
+        }
+
         val mongoQLSchemaGenerator = MongoQLSchemaGenerator(mongoSchemaIntrospectorMock, schemaBuilderMock)
 
         val mongoDbParamsMock = MongoDBParams.Builder("test", "col").build()
         val graphqlParamsMock = GraphQLParams.Builder("root").build()
-
-        val model = Mockito.mock(ModelPathJson::class.java)
-        Mockito.`when`(mongoSchemaIntrospectorMock.readAndParseMongoSchema(mongoDbParamsMock)).thenReturn(Collections.singletonList(model))
-
-        val type = Mockito.mock(Type::class.java)
-        Mockito.`when`(schemaBuilderMock.build(graphqlParamsMock, Collections.singletonList(model))).thenReturn(Collections.singletonList(type))
 
         // When
         val generatedSchema = mongoQLSchemaGenerator.generate(mongoDbParamsMock, graphqlParamsMock)

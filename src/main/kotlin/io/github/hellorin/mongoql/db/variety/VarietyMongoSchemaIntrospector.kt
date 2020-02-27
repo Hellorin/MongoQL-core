@@ -11,7 +11,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.util.stream.Collectors
 
-internal class VarietyMongoSchemaIntrospector(
+internal open class VarietyMongoSchemaIntrospector(
         private val varietyModelMapper : ModelMapper<VarietyModelPathJson> = VarietyModelMapper(),
         private val mongoShellExecutor: MongoVarietyShellExecutor = MongoVarietyShellExecutor()) : MongoSchemaIntrospector() {
     private val objectMapper = ObjectMapper()

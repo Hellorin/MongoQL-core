@@ -4,10 +4,12 @@ import io.github.hellorin.mongoql.db.ModelMapper
 import io.github.hellorin.mongoql.db.ModelPathJson
 import io.github.hellorin.mongoql.db.MongoDBParams
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import java.io.BufferedOutputStream
 import java.io.ByteArrayOutputStream
+import java.io.InputStream
 import java.io.OutputStream
 import java.nio.charset.Charset
 import java.util.*
@@ -15,25 +17,100 @@ import java.util.*
 class VarietyMongoSchemaIntrospectorTest {
 
     @Test
-    fun `test variety introspector`() {
+    fun `test error in executor`() {
         // Given
         val params = MongoDBParams.Builder("db", "col").build()
 
-        val model = Mockito.mock(ModelPathJson::class.java)
+        val model = ModelPathJson()
         val mapper = object : ModelMapper<VarietyModelPathJson> {
             override fun map(models: List<VarietyModelPathJson>): List<ModelPathJson> = Collections.singletonList(model)
         }
 
-        val shellExecutor = Mockito.mock(MongoVarietyShellExecutor::class.java)
+        val byteInputStream = """
+            uncaught exception
+            """.byteInputStream(Charsets.UTF_8)
+        val process = object: Process() {
+            override fun destroy() {
+                // not required
+            }
 
-        val process = Mockito.mock(Process::class.java)
+            // not required
+            override fun exitValue(): Int = 0
+
+            // not required
+            override fun waitFor(): Int = 0
+
+            // not required
+            override fun getOutputStream(): OutputStream {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            // not required
+            override fun getErrorStream(): InputStream {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun getInputStream(): InputStream = byteInputStream
+
+        }
+
+        val shellExecutor = object : MongoVarietyShellExecutor() {
+            override fun execute(
+                    mongoDBParams: MongoDBParams,
+                    processStarter: ProcessStarter,
+                    varietyScriptCloner: VarietyScriptCloner) = process
+        }
+
+        // When
+        Assertions.assertThrows(VarietyException::class.java) {
+            VarietyMongoSchemaIntrospector(mapper, shellExecutor).readAndParseMongoSchema(params)
+        }
+    }
+
+    @Test
+    fun `test variety introspector`() {
+        // Given
+        val params = MongoDBParams.Builder("db", "col").build()
+
+        val model = ModelPathJson()
+        val mapper = object : ModelMapper<VarietyModelPathJson> {
+            override fun map(models: List<VarietyModelPathJson>): List<ModelPathJson> = Collections.singletonList(model)
+        }
 
         val byteInputStream = """
             [{"_id":{"key":""},"value":{"types":{}},"totalOccurrences":0,"percentContaining":0.0}]
             """.byteInputStream(Charsets.UTF_8)
-        Mockito.`when`(process.inputStream).thenReturn(byteInputStream)
+        val process = object: Process() {
+            override fun destroy() {
+                // not required
+            }
 
-        Mockito.`when`(shellExecutor.execute(params)).thenReturn(process)
+            // not required
+            override fun exitValue(): Int = 0
+
+            // not required
+            override fun waitFor(): Int = 0
+
+            // not required
+            override fun getOutputStream(): OutputStream {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            // not required
+            override fun getErrorStream(): InputStream {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun getInputStream(): InputStream = byteInputStream
+
+        }
+
+        val shellExecutor = object : MongoVarietyShellExecutor() {
+            override fun execute(
+                    mongoDBParams: MongoDBParams,
+                    processStarter: ProcessStarter,
+                    varietyScriptCloner: VarietyScriptCloner) = process
+        }
 
         // When
         val dbSchema = VarietyMongoSchemaIntrospector(mapper, shellExecutor).readAndParseMongoSchema(params)
