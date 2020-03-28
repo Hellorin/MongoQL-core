@@ -18,11 +18,11 @@ internal class ProcessStarterTest {
             assertThat(process).isNotNull
             assertThat(process.outputStream).isNotNull
         } else if (osName.contains("mac")) {
-            val process = processStarter.startAndWaitFor(folder, listOf("ping 8.8.8.8"))
+            val process = processStarter.startAndWaitFor(folder, listOf("ping", "8.8.8.8"))
             assertThat(process).isNotNull
             assertThat(process.outputStream).isNotNull
         } else if (osName.contains("nix") || osName.contains("nux") || osName.contains("aix")) {
-            val process = processStarter.startAndWaitFor(folder, listOf("ping 8.8.8.8"))
+            val process = processStarter.startAndWaitFor(folder, listOf("ping", "8.8.8.8"))
             assertThat(process).isNotNull
             assertThat(process.outputStream).isNotNull
         }
