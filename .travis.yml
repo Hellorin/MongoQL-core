@@ -5,8 +5,7 @@ sudo: required
 script:
   - "mkdir ./folder"
   - "chmod u+rw ./folder"
-  - "mvn test"
-  - "mvn integration-test -Djava.io.tmpdir=./folder -Pintegration-tests"
+  - "mvn test integration-test -Djava.io.tmpdir=./folder -Pintegration-tests"
 
 
 after_script: bash <(curl -s https://codecov.io/bash)
