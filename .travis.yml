@@ -2,6 +2,9 @@ language: java
 
 sudo: required
 
-script: "mvn test"
+script:
+  - "chmod u+rw folder"
+  - "mvn test"
+
 
 after_script: bash <(curl -s https://codecov.io/bash)
