@@ -5,6 +5,8 @@ import java.io.File
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption
 
+private const val VARIETY_SCRIPT_NAME = "variety.js"
+
 internal open class MongoVarietyShellExecutor {
 
     private fun prepareCommandParameters(mongoDBParams: MongoDBParams): MutableList<String> {
@@ -21,7 +23,7 @@ internal open class MongoVarietyShellExecutor {
                 "--quiet",
                 "--eval",
                 "\"var collection= '${mongoDBParams.colName}', outputFormat='json'\"",
-                "variety.js")
+                VARIETY_SCRIPT_NAME)
         )
 
         return parameters
@@ -44,9 +46,9 @@ internal open class MongoVarietyShellExecutor {
 
 open class VarietyScriptCloner {
     open fun copyVarietyScriptToTmpDirectory(filename: String){
-        val tmpFile = File(System.getProperty("java.io.tmpdir") + File.separator + "variety.js")
+        val tmpFile = File(System.getProperty("java.io.tmpdir") + File.separator + VARIETY_SCRIPT_NAME)
         Files.copy(
-                MongoVarietyShellExecutor::class.java.classLoader.getResourceAsStream("variety.js")!!,
+                MongoVarietyShellExecutor::class.java.classLoader.getResourceAsStream(VARIETY_SCRIPT_NAME)!!,
                 tmpFile.toPath(),
                 StandardCopyOption.REPLACE_EXISTING
         )

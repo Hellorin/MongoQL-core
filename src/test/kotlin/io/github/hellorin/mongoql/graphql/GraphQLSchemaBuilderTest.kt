@@ -39,6 +39,12 @@ class GraphQLSchemaBuilderTest {
                 2,
                 100.0
         )
+        val modelPathJson4 = ModelPathJson(
+                IdJson(key = "children.age"),
+                ValueJson(types = mutableMapOf("Number" to 1)),
+                2,
+                100.0
+        )
 
         // When
         val list = GraphQLSchemaBuilder().build(
@@ -47,7 +53,8 @@ class GraphQLSchemaBuilderTest {
                         modelPathJson0,
                         modelPathJson1,
                         modelPathJson2,
-                        modelPathJson3
+                        modelPathJson3,
+                        modelPathJson4
                 )
         )
 
@@ -74,10 +81,13 @@ class GraphQLSchemaBuilderTest {
         assertThat(children).isNotNull()
         children = children!!
         assertThat(children.typeName).isEqualTo("children")
-        assertThat(children.attributes.size).isEqualTo(1)
+        assertThat(children.attributes.size).isEqualTo(2)
         assertThat(children.attributes[0].name).isEqualTo("name")
         assertThat(children.attributes[0].types).isEqualTo(Collections.singleton("String"))
         assertThat(children.attributes[0].nullable).isEqualTo(true)
+        assertThat(children.attributes[1].name).isEqualTo("age")
+        assertThat(children.attributes[1].types).isEqualTo(Collections.singleton("Int"))
+        assertThat(children.attributes[1].nullable).isEqualTo(false)
     }
 
     @Test
