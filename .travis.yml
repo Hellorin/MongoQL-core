@@ -3,7 +3,8 @@ language: java
 sudo: required
 
 script:
-  - "chmod u+rw folder"
+  - "mkdir ./folder"
+  - "chmod u+rw ./folder"
   - "mvn test"
 
 
