@@ -5,7 +5,7 @@ sudo: required
 script:
   - "mkdir ./folder"
   - "chmod u+rw ./folder"
-  - "mvn test"
+  - "mvn test -Djava.io.tmpdir=./folder"
 
 
 after_script: bash <(curl -s https://codecov.io/bash)
