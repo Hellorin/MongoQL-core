@@ -1,9 +1,13 @@
 package io.github.hellorin.mongoql.db.variety
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import java.io.File
+import java.nio.file.Files
 
+@Tag("integration-tests")
 internal class ProcessStarterTest {
     @Test
     fun `start process starter`() {
