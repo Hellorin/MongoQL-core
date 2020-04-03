@@ -42,12 +42,12 @@ class VarietyMongoSchemaIntrospectorTest {
 
             // not required
             override fun getOutputStream(): OutputStream {
-                throw NotImplementedError()
+                throw NotImplementedError("getOutputStream")
             }
 
             // not required
             override fun getErrorStream(): InputStream {
-                throw NotImplementedError()
+                throw NotImplementedError("getErrorStream")
             }
 
             override fun getInputStream(): InputStream = byteInputStream
@@ -92,12 +92,12 @@ class VarietyMongoSchemaIntrospectorTest {
 
             // not required
             override fun getOutputStream(): OutputStream {
-                throw NotImplementedError()
+                throw NotImplementedError("getOutputStream")
             }
 
             // not required
             override fun getErrorStream(): InputStream {
-                throw NotImplementedError()
+                throw NotImplementedError("getErrorStream")
             }
 
             override fun getInputStream(): InputStream = byteInputStream
