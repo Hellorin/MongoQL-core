@@ -29,27 +29,27 @@ internal class MongoVarietyShellExecutorTest {
 
                 return object : Process() {
                     override fun destroy() {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        throw NotImplementedError() // Not needed
                     }
 
                     override fun exitValue(): Int {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        throw NotImplementedError() // Not needed
                     }
 
                     override fun waitFor(): Int {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        throw NotImplementedError() // Not needed
                     }
 
                     override fun getOutputStream(): OutputStream {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        throw NotImplementedError() // Not needed
                     }
 
                     override fun getErrorStream(): InputStream {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        throw NotImplementedError() // Not needed
                     }
 
                     override fun getInputStream(): InputStream {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        throw NotImplementedError() // Not needed
                     }
 
                 }

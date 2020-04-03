@@ -42,12 +42,12 @@ class VarietyMongoSchemaIntrospectorTest {
 
             // not required
             override fun getOutputStream(): OutputStream {
-                TODO("not implemented")
+                throw NotImplementedError()
             }
 
             // not required
             override fun getErrorStream(): InputStream {
-                TODO("not implemented")
+                throw NotImplementedError()
             }
 
             override fun getInputStream(): InputStream = byteInputStream
@@ -92,12 +92,12 @@ class VarietyMongoSchemaIntrospectorTest {
 
             // not required
             override fun getOutputStream(): OutputStream {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                throw NotImplementedError()
             }
 
             // not required
             override fun getErrorStream(): InputStream {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                throw NotImplementedError()
             }
 
             override fun getInputStream(): InputStream = byteInputStream

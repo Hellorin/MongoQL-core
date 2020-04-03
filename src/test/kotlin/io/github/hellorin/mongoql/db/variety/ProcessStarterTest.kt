@@ -18,11 +18,7 @@ internal class ProcessStarterTest {
             val process = processStarter.startAndWaitFor(listOf("cmd.exe", "/c", "ping 8.8.8.8"))
             assertThat(process).isNotNull
             assertThat(process.outputStream).isNotNull
-        } else if (osName.contains("mac")) {
-            val process = processStarter.startAndWaitFor(listOf("false"))
-            assertThat(process).isNotNull
-            assertThat(process.outputStream).isNotNull
-        } else if (osName.contains("nix") || osName.contains("nux") || osName.contains("aix")) {
+        } else if (osName.contains("mac") || osName.contains("nix") || osName.contains("nux") || osName.contains("aix")) {
             val process = processStarter.startAndWaitFor(listOf("false"))
             assertThat(process).isNotNull
             assertThat(process.outputStream).isNotNull
