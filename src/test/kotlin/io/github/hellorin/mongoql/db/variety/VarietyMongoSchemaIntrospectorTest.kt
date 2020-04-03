@@ -73,7 +73,7 @@ class VarietyMongoSchemaIntrospectorTest {
 }
 
 private fun getProcess(byteInputStream: ByteArrayInputStream) : Process {
-    val process = object : Process() {
+    return object : Process() {
         override fun destroy() {
             // not required
         }
