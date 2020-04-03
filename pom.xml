@@ -280,7 +280,7 @@
                 <version>2.22.0</version>
                 <configuration>
                     <excludedGroups>
-                        integration-tests
+                        integration-tests,system-tests
                     </excludedGroups>
                 </configuration>
             </plugin>
@@ -354,6 +354,9 @@
                             <includes>
                                 <include>**/*</include>
                             </includes>
+                            <excludedGroups>
+                                system-tests
+                            </excludedGroups>
                             <groups>integration-tests</groups>
                         </configuration>
                         <executions>

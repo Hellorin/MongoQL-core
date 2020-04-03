@@ -13,6 +13,7 @@ internal class MongoVarietyShellExecutorTest {
     @Test
     fun `test`() {
         // Given
+        System.setProperty("os.name", "windows:")
         System.setProperty("java.io.tmpdir", "folder")
 
         val mongoDBParams = MongoDBParams.Builder("db", "col").build()
@@ -20,9 +21,9 @@ internal class MongoVarietyShellExecutorTest {
         val processStarter = object : ProcessStarter() {
             var isCorrect: Boolean = false
 
-            override fun startAndWaitFor(directory: File, parameters: List<String>): Process {
+            override fun startAndWaitFor(parameters: List<String>): Process {
 
-                if (parameters == listOf("mongo", "db", "--quiet", "--eval", "\"var collection= 'col', outputFormat='json'\"", "variety.js")) {
+                if (parameters == listOf("variety.cmd", "db/col", "--quiet", "--outputFormat=json")) {
                     isCorrect = true
                 }
 
@@ -55,17 +56,10 @@ internal class MongoVarietyShellExecutorTest {
             }
         }
 
-        val varietyScriptCloner = object : VarietyScriptCloner() {
-            override fun copyVarietyScriptToTmpDirectory(filename: String){
-                // Do nothing
-            }
-        }
-
         // When
-        val execute = MongoVarietyShellExecutor().execute(
+        MongoVarietyShellExecutor().execute(
                 mongoDBParams,
-                processStarter,
-                varietyScriptCloner)
+                processStarter)
 
         // Then
         assertThat(processStarter.isCorrect).isEqualTo(true)

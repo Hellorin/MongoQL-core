@@ -8,7 +8,7 @@ class MongoDBParamsTest {
     @Test
     fun `test mongo db params`() {
         // When
-        var params = MongoDBParams.Builder(
+        val params = MongoDBParams.Builder(
                 dbName = "db",
                 colName = "col"
         ).host(
@@ -17,6 +17,14 @@ class MongoDBParamsTest {
                 "user"
         ).password(
                 "pwd"
+        ).port(
+                27000
+        ).isUsingTLS(
+                true
+        ).authenticationDatabase(
+                "admin"
+        ).authenticationMechanism(
+                "SCRAM"
         ).build()
 
         // Then
@@ -25,5 +33,10 @@ class MongoDBParamsTest {
         assertThat(params.host).isEqualTo("localhost")
         assertThat(params.username).isEqualTo("user")
         assertThat(params.password).isEqualTo("pwd")
+        assertThat(params.port).isEqualTo(27000)
+        assertThat(params.isUsingTLS).isEqualTo(true)
+        assertThat(params.authenticationDatabase).isEqualTo("admin")
+        assertThat(params.authenticationMechanism).isEqualTo("SCRAM")
+
     }
 }

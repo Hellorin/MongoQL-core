@@ -42,12 +42,12 @@ class VarietyMongoSchemaIntrospectorTest {
 
             // not required
             override fun getOutputStream(): OutputStream {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                TODO("not implemented")
             }
 
             // not required
             override fun getErrorStream(): InputStream {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                TODO("not implemented")
             }
 
             override fun getInputStream(): InputStream = byteInputStream
@@ -57,8 +57,7 @@ class VarietyMongoSchemaIntrospectorTest {
         val shellExecutor = object : MongoVarietyShellExecutor() {
             override fun execute(
                     mongoDBParams: MongoDBParams,
-                    processStarter: ProcessStarter,
-                    varietyScriptCloner: VarietyScriptCloner) = process
+                    processStarter: ProcessStarter) = process
         }
 
         // When
@@ -108,8 +107,7 @@ class VarietyMongoSchemaIntrospectorTest {
         val shellExecutor = object : MongoVarietyShellExecutor() {
             override fun execute(
                     mongoDBParams: MongoDBParams,
-                    processStarter: ProcessStarter,
-                    varietyScriptCloner: VarietyScriptCloner) = process
+                    processStarter: ProcessStarter) = process
         }
 
         // When

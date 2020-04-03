@@ -13,10 +13,13 @@ class MongoDBParams private constructor(
         val dbName: String,
         val colName: String,
         val host: String?,
+        val port: Long?,
         val username: String?,
-        val password: String?
+        val password: String?,
+        val isUsingTLS: Boolean?,
+        val authenticationDatabase: String?,
+        val authenticationMechanism: String?
 ) {
-
     /**
      * Builder used to easily build MongoDB related parameters
      *
@@ -30,13 +33,22 @@ class MongoDBParams private constructor(
             private var dbName: String,
             private var colName: String,
             private var host: String? = null,
+            private var port: Long? = null,
             private var username: String? = null,
-            private var password: String? = null
+            private var password: String? = null,
+            private var isUsingTLS: Boolean? = null,
+            private var authenticationDatabase : String? = null,
+            private var authenticationMechanism: String? = null
     ) {
         /**
          * Method used to change the hostname
          */
         fun host(host: String) = apply { this.host = host }
+
+        /**
+         * Method used to change the port
+         */
+        fun port(port: Long) = apply { this.port = port }
 
         /**
          * Method used to change the username
@@ -49,10 +61,35 @@ class MongoDBParams private constructor(
         fun password(password: String) = apply { this.password = password }
 
         /**
+         * Method used to change is we must use TLS
+         */
+        fun isUsingTLS(isUsingTLS: Boolean) = apply { this.isUsingTLS = isUsingTLS }
+
+        /**
+         * Method used to change the authentication database used
+         */
+        fun authenticationDatabase(authenticationDatabase: String) = apply { this.authenticationDatabase = authenticationDatabase }
+
+        /**
+         * Method used to change the authentication mechanism used
+         */
+        fun authenticationMechanism(authenticationMechanism : String) = apply {this.authenticationMechanism = authenticationMechanism }
+
+        /**
          * Build a mongoDB parameters instance class
          *
          * @return A MongoDB parameters instance
          */
-        fun build() = MongoDBParams(dbName, colName, host, username, password)
+        fun build() = MongoDBParams(
+                dbName,
+                colName,
+                host,
+                port,
+                username,
+                password,
+                isUsingTLS,
+                authenticationDatabase,
+                authenticationMechanism
+        )
     }
 }

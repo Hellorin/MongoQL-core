@@ -63,7 +63,7 @@ class GraphQLSchemaBuilderTest {
         assertThat(list.size).isEqualTo(2)
 
         var root = list.find { type -> "root" == type.typeName }
-        assertThat(root).isNotNull()
+        assertThat(root).isNotNull
         root = root!!
         assertThat(root.typeName).isEqualTo("root")
         assertThat(root.attributes.size).isEqualTo(3)
@@ -78,7 +78,7 @@ class GraphQLSchemaBuilderTest {
         assertThat(root.attributes[2].nullable).isEqualTo(false)
 
         var children = list.find { type -> "children" == type.typeName }
-        assertThat(children).isNotNull()
+        assertThat(children).isNotNull
         children = children!!
         assertThat(children.typeName).isEqualTo("children")
         assertThat(children.attributes.size).isEqualTo(2)

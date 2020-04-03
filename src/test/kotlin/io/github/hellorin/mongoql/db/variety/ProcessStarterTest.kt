@@ -13,19 +13,17 @@ internal class ProcessStarterTest {
     fun `start process starter`() {
         val processStarter = ProcessStarter()
 
-        val folder = File(System.getProperty("java.io.tmpdir"))
-
         val osName = System.getProperty("os.name").toLowerCase()
         if (osName.startsWith("windows")) {
-            val process = processStarter.startAndWaitFor(folder, listOf("cmd.exe", "/c", "ping 8.8.8.8"))
+            val process = processStarter.startAndWaitFor(listOf("cmd.exe", "/c", "ping 8.8.8.8"))
             assertThat(process).isNotNull
             assertThat(process.outputStream).isNotNull
         } else if (osName.contains("mac")) {
-            val process = processStarter.startAndWaitFor(folder, listOf("false"))
+            val process = processStarter.startAndWaitFor(listOf("false"))
             assertThat(process).isNotNull
             assertThat(process.outputStream).isNotNull
         } else if (osName.contains("nix") || osName.contains("nux") || osName.contains("aix")) {
-            val process = processStarter.startAndWaitFor(folder, listOf("false"))
+            val process = processStarter.startAndWaitFor(listOf("false"))
             assertThat(process).isNotNull
             assertThat(process.outputStream).isNotNull
         }
