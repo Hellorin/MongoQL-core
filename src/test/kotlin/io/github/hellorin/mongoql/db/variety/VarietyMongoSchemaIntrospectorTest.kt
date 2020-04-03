@@ -101,7 +101,6 @@ class VarietyMongoSchemaIntrospectorTest {
             }
 
             override fun getInputStream(): InputStream = byteInputStream
-
         }
 
         val shellExecutor = object : MongoVarietyShellExecutor() {

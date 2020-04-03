@@ -10,8 +10,8 @@ internal class MongoQLCoreSystemTest {
 
     @Test
     fun `MongoDB localhost`() {
-        val dbname = "myDatabase"
-        val collectionName = "myCollection"
+        val dbname = "myDatabase" // enter your database name
+        val collectionName = "myCollection" // enter your collection name
         val rootName = "person"
 
         val stringRepresentationGraphQLSchema = MongoQLSchemaGenerator().generate(
@@ -29,8 +29,8 @@ internal class MongoQLCoreSystemTest {
 
     @Test
     fun `MongoDB atlas`() {
-        val dbname = "myDatabase"
-        val collectionName = "myCollection"
+        val dbname = "myDatabase" // enter your database name
+        val collectionName = "myCollection" // enter your collection name
         val rootName = "person"
         val (username, password) = Pair("user", "user") // enter your username/password
         val host = "mongoql-shard-00-01-sp4v4.mongodb.net" // enter your singlehostname
