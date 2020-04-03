@@ -10,20 +10,36 @@ In a nutshell, the purpose of this tool is to generate a GraphQL schema based on
 Note that this tool has been named **MongoQL-core** since it doesn't have much purpose alone. However, it is the foundation of the concept. In fact, a GraphQL schema can be useful to describe a contract but alone it's not executable. This tool would/should be used conjointly with another tool in order to generate the GraphQL data fetchers required.
 
 ### Requirements
-Since Variety uses the mongo shell to connect to the database for introspection, one must install it and make it available through the command line or terminal. Please look on [here](https://docs.mongodb.com/manual/administration/install-community/) for a full description on how to install the mongo shell
+A couple tools should be installed beforehand.
 
-### Standalone jar
-One can use it using the jar arguments or by cloning this repository and using the main.
+#### Install nodejs
+[NodeJs official website](https://nodejs.org/en/download/)
 
-The command line jar execution uses the following syntax:
+#### Install variety-cli
 ```
-java -jar mongoql-core-1.0.0-SNAPSHOT.jar *databaseName* *collectionName* *graphQLRootName*
+npm install variety-cli -g
 ```
 
-### Full example
+#### Add variety-cli to path
+Please verify that variety is accessible from a command line/terminal.
+
+For Windows, open a command line call and type:
+```
+variety.cmd
+```
+
+For Mac OS X/Linux, open a terminal and type:
+```
+variety
+```
+
+If it is not, please add an **environment variable** to make it available.
+
+### Using MongoQLCoreSystemTest *MongoDB localhost* system test
+
+#### Loading data locally
 Here is described exactly how to get a running example of MongoQL-core:
 
-__Step 1__: Create a MongoDB database locally and create/populate a collection
 Open a terminal or a command line and connect to Mongo locally with:
 ```
 mongo
@@ -38,19 +54,7 @@ db.myCollection.insertOne({"name": "Kevin"})
 db.myCollection.insertOne({"name": "Michael", "child": {"name" : "L", "age":1}})
 ```
 
-__Step 2__: Compile the jar
-
-Compile it using maven:
-```
-mvn clean install
-```
-
-__Step 3__: Execute jar
-
-Execute it with the following command
-```
-java -jar mongoql-core-1.0.0-SNAPSHOT-jar-with-dependencies.jar myDatabase myCollection Person
-```
+#### Executing the test
 __Result__:
 ```
 type Child {
@@ -64,14 +68,67 @@ type Person {
         age : Int
         child : Child
 }
+```
 
+### Using MongoQLCoreSystemTest *MongoDB atlas* system test
+
+#### Setting up your MongoDB Atlas
+- Connect to MongoDB atlas (or create an account);
+- Create a new project;
+- Create a new cluster;
+    - Pick a shared cluster with a free subscription
+
+Please be patient, this step could take a bit of time.
+
+#### Whitelist your IP 
+Go in **Network Access** and **add a new ip address**. Then select **ALLOW ACCESS FROM ANYWHERE**. 
+
+Please be patient, this step could take a bit of time.
+
+#### Add a user to connect to MongoDB
+Go in **Database Access** and **add a new database user**. In my example, the user is called **user** and it's password is also **user**.
+Note that you will need to give him access to your database in read and write but after loading your data, you could restrict him to only read of your database.
+
+Please be patient, this step could take a bit of time.
+
+#### Loading data in your MongoDB Atlas
+Retrieve your connection URL from MongoDB atlas. It should look something like this:
+```
+mongo "mongodb+srv://****.mongodb.net/test"  --username ****
+```
+And then enters your password.
+
+Now you can populate data into a database/collection:
+```
+use myDatabase
+db.myCollection.insertOne({"name": "David", "age":32})
+db.myCollection.insertOne({"name": "Mathieu", "age":32})
+db.myCollection.insertOne({"name": "Nuno", "age":32})
+db.myCollection.insertOne({"name": "Kevin"})
+db.myCollection.insertOne({"name": "Michael", "child": {"name" : "L", "age":1}})
+```
+
+#### Executing the test
+__Result__:
+```
+type Child {
+        age : Int!
+        name : String!
+}
+
+type Person {
+        _id : ID!
+        name : String!
+        age : Int
+        child : Child
+}
 ```
 
 ## Current Limitations
 Since it's in the early stages, there is, sadly, a couple limitations:
 
 ### Multi types fields
-Since MongoDB is schemaless, it enables fields to have multiple types. This tool should be able to handle this in a near future but currently it's not supported.
+Since MongoDB is schema-less, it enables fields to have multiple types. This tool should be able to handle this in a near future but currently it's not supported.
 
 ### Arrays
 The tool used to introspect the MongoDB schema of a collection isn't precise enough to give information of content of arrays. For now, it is out of scope of this tool.

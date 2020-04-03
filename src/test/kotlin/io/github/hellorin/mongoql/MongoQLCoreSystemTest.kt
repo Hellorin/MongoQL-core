@@ -7,13 +7,33 @@ import org.junit.jupiter.api.Test
 
 @Tag("system-tests")
 internal class MongoQLCoreSystemTest {
+
     @Test
-    fun mongoDbAtlasSystemTest() {
+    fun `MongoDB localhost`() {
         val dbname = "myDatabase"
         val collectionName = "myCollection"
         val rootName = "person"
-        val (username, password) = Pair("davidL", "davidL")
-        val host = "cluster0-shard-00-02-ieyyb.mongodb.net"
+
+        val stringRepresentationGraphQLSchema = MongoQLSchemaGenerator().generate(
+                MongoDBParams.Builder(
+                        dbName = dbname,
+                        colName = collectionName
+                ).build(),
+                GraphQLParams.Builder(rootName.capitalize()).build()
+        ).joinToString(separator = "\n\n")
+
+        print(
+                stringRepresentationGraphQLSchema
+        )
+    }
+
+    @Test
+    fun `MongoDB atlas`() {
+        val dbname = "myDatabase"
+        val collectionName = "myCollection"
+        val rootName = "person"
+        val (username, password) = Pair("user", "user") // enter your username/password
+        val host = "mongoql-shard-00-01-sp4v4.mongodb.net" // enter your singlehostname
         val port = 27017L
         val isUsingTLS = true
         val authenticationDatabase = "admin"
@@ -39,22 +59,4 @@ internal class MongoQLCoreSystemTest {
         )
     }
 
-    @Test
-    fun mongoDbLocalSystemTest() {
-        val dbname = "test"
-        val collectionName = "coll"
-        val rootName = "person"
-
-        val stringRepresentationGraphQLSchema = MongoQLSchemaGenerator().generate(
-                MongoDBParams.Builder(
-                        dbName = dbname,
-                        colName = collectionName
-                ).build(),
-                GraphQLParams.Builder(rootName.capitalize()).build()
-        ).joinToString(separator = "\n\n")
-
-        print(
-                stringRepresentationGraphQLSchema
-        )
-    }
 }
