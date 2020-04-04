@@ -16,8 +16,8 @@
 
     <!-- 2. scm information -->
     <scm>
-        <connection>scm:git:ssh://github.com/Hellorin/MongoQL-core.git</connection>
-        <developerConnection>scm:git:ssh://github.com/Hellorin/MongoQL-core.git</developerConnection>
+        <connection>scm:git:git://github.com/Hellorin/MongoQL-core.git</connection>
+        <developerConnection>scm:git:git@github.com:Hellorin/MongoQL-core.git</developerConnection>
         <url>https://github.com/Hellorin/MongoQL-core/tree/master</url>
     </scm>
 
