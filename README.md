@@ -87,7 +87,7 @@ Please be patient, this step could take a bit of time.
 
 #### Add a user to connect to MongoDB
 Go in **Database Access** and **add a new database user**. In my example, the user is called **user** and it's password is also **user**.
-Note that you will need to give him access to your database in read and write but after loading your data, you could restrict him to only read of your database.
+Note that you will need to give him access to your database in read and write (unfortunately Variety needs write rights as it performs calculations on the server).
 
 Please be patient, this step could take a bit of time.
 

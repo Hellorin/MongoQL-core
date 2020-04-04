@@ -33,7 +33,7 @@ internal class MongoQLCoreSystemTest {
         val collectionName = "myCollection" // enter your collection name
         val rootName = "person"
         val (username, password) = Pair("user", "user") // enter your username/password
-        val host = "mongoql-shard-00-01-sp4v4.mongodb.net" // enter your singlehostname
+        val host = "mongoql-shard-00-02-sp4v4.mongodb.net" // enter your singlehostname
         val port = 27017L
         val isUsingTLS = true
         val authenticationDatabase = "admin"

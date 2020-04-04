@@ -20,6 +20,20 @@ class MongoDBParams private constructor(
         val authenticationDatabase: String?,
         val authenticationMechanism: String?
 ) {
+    override fun toString() =
+        """MongoDBParams[
+            dbName: $dbName,
+            colName: $colName,
+            host: $host,
+            port: $port,
+            username: $username,
+            password: ***,
+            isUsingTLS: $isUsingTLS,
+            authenticationDatabase: $authenticationDatabase,
+            authenticationMechanism: $authenticationMechanism
+        ]""".trimMargin()
+
+
     /**
      * Builder used to easily build MongoDB related parameters
      *

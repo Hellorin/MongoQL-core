@@ -26,8 +26,11 @@ internal open class VarietyMongoSchemaIntrospector(
             br.lines().collect(Collectors.joining(System.lineSeparator()))
         }
 
-        if ("uncaught exception".toRegex().containsMatchIn(processOutput)) {logger
-            logger.error { "Unexpected error while introspecting MongoDB database/collection" }
+        if ("uncaught exception".toRegex().containsMatchIn(processOutput)) {
+            // Sanitize output
+            var sanitizedProcessOutput = processOutput.replace("--password=${mongoDBParams.password}", "--password=***")
+
+            logger.error { "Unexpected error while introspecting MongoDB database/collection. Details: $sanitizedProcessOutput" }
             throw VarietyException("Unexpected error while introspecting MongoDB database/collection")
         }
 

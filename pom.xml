@@ -5,7 +5,7 @@
 
     <!-- 1. basic informations -->
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.github.hellorin</groupId>
+    <groupId>io.github.hellorin.mongoql</groupId>
     <artifactId>mongoql-core</artifactId>
     <version>1.2.0-SNAPSHOT</version>
     <name>MongoQL-core</name>
@@ -26,7 +26,6 @@
         <kotlin.version>1.3.60</kotlin.version>
         <main.class>io.github.hellorin.mongoql.MongoQLCoreKt</main.class>
         <junit-jupiter.version>5.4.2</junit-jupiter.version>
-        <tests></tests>
 
         <maven.javadoc.plugin.version>3.0.1</maven.javadoc.plugin.version>
         <maven.source.plugin.version>3.0.1</maven.source.plugin.version>
@@ -58,6 +57,7 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Logging -->
@@ -70,16 +70,19 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.7.29</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
             <version>1.2.3</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Testing Dependencies -->
@@ -112,12 +115,14 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.10.0</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-kotlin</artifactId>
             <version>2.10.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -144,26 +149,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- 5. sign all files with generated keys -->
-            <!--<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>${maven.gpg.plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                        <configuration>
-                            <keyname>${key.id}</keyname>
-                            <passphraseServerId>${key.id}</passphraseServerId>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
 
             <!-- 6. attach source codes -->
             <plugin>
