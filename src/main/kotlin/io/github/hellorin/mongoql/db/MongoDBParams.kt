@@ -1,5 +1,7 @@
 package io.github.hellorin.mongoql.db
 
+import java.net.URI
+
 /**
  * Class used to represent Mongo DB related parameters
  *
@@ -13,6 +15,8 @@ class MongoDBParams private constructor(
         val dbName: String,
         val colName: String,
         val host: String?,
+        val useURI: Boolean?,
+        val clusterHost: String?,
         val port: Long?,
         val username: String?,
         val password: String?,
@@ -25,6 +29,8 @@ class MongoDBParams private constructor(
             dbName: $dbName,
             colName: $colName,
             host: $host,
+            useUri: $useURI,
+            clusterHost: $clusterHost,
             port: $port,
             username: $username,
             password: ***,
@@ -47,6 +53,8 @@ class MongoDBParams private constructor(
             private var dbName: String,
             private var colName: String,
             private var host: String? = null,
+            private var useURI: Boolean = false,
+            private var clusterHost: String? = null,
             private var port: Long? = null,
             private var username: String? = null,
             private var password: String? = null,
@@ -58,6 +66,16 @@ class MongoDBParams private constructor(
          * Method used to change the hostname
          */
         fun host(host: String) = apply { this.host = host }
+
+        /**
+         * Method used to determine if we use URI connection's string or not
+         */
+        fun useURI(useURI: Boolean) = apply { this.useURI = useURI }
+
+        /**
+         * Method used to change the cluster hostname
+         */
+        fun clusterHost(clusterHost: String) = apply { this.clusterHost = clusterHost }
 
         /**
          * Method used to change the port
@@ -98,6 +116,8 @@ class MongoDBParams private constructor(
                 dbName,
                 colName,
                 host,
+                useURI,
+                clusterHost,
                 port,
                 username,
                 password,
