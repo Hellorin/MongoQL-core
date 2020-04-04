@@ -1,8 +1,10 @@
 package io.github.hellorin.mongoql.db.variety
 
 import io.github.hellorin.mongoql.db.MongoDBParams
+import mu.KotlinLogging
 
 internal open class MongoVarietyShellExecutor {
+    private val logger = KotlinLogging.logger {}
 
     private fun determineWhichVarietyToTake(): String {
         val os = System.getProperty("os.name").toLowerCase()
@@ -37,6 +39,12 @@ internal open class MongoVarietyShellExecutor {
             mongoDBParams: MongoDBParams,
             processStarter: ProcessStarter = ProcessStarter()): Process {
         val parameters = prepareCommandParameters(mongoDBParams)
+
+        // Log for debug the parameters (just to be sure they are correctly entered)
+        val filteredParameters = parameters.filter {
+            it.contains("--password")
+        }
+        logger.debug { "Parameters are : $filteredParameters" }
 
         // Call process
         return processStarter.startAndWaitFor(parameters)
