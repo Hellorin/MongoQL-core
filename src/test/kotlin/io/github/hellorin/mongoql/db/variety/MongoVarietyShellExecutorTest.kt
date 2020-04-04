@@ -60,7 +60,7 @@ internal class MongoVarietyShellExecutorTest {
                 "--authenticationDatabase=admin",
                 "--authenticationMechanism=SCRAM",
                 "--username=user",
-                "--password=password"))
+                "--password=password")) //NOSONAR this isn't a hardcoded password
 
         // When/Then
         MongoVarietyShellExecutor().execute(
