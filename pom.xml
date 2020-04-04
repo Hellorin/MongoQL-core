@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.hellorin</groupId>
     <artifactId>mongoql-core</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.1.0</version>
     <name>MongoQL-core</name>
     <url>https://github.com/Hellorin/MongoQL-core</url>
     <description>Mongo + GraphQL = MongoQL. Core library to generate a graphql schema based on a Mongo database'
