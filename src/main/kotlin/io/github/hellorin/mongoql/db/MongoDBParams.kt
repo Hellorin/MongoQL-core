@@ -1,7 +1,5 @@
 package io.github.hellorin.mongoql.db
 
-import java.net.URI
-
 /**
  * Class used to represent Mongo DB related parameters
  *
@@ -25,7 +23,7 @@ class MongoDBParams private constructor(
         val authenticationMechanism: String?
 ) {
     override fun toString() =
-        """MongoDBParams[
+            """MongoDBParams[
             dbName: $dbName,
             colName: $colName,
             host: $host,
@@ -59,7 +57,7 @@ class MongoDBParams private constructor(
             private var username: String? = null,
             private var password: String? = null,
             private var isUsingTLS: Boolean? = null,
-            private var authenticationDatabase : String? = null,
+            private var authenticationDatabase: String? = null,
             private var authenticationMechanism: String? = null
     ) {
         /**
@@ -105,7 +103,7 @@ class MongoDBParams private constructor(
         /**
          * Method used to change the authentication mechanism used
          */
-        fun authenticationMechanism(authenticationMechanism : String) = apply {this.authenticationMechanism = authenticationMechanism }
+        fun authenticationMechanism(authenticationMechanism: String) = apply { this.authenticationMechanism = authenticationMechanism }
 
         /**
          * Build a mongoDB parameters instance class

@@ -13,6 +13,10 @@ class MongoDBParamsTest {
                 colName = "col"
         ).host(
                 "localhost"
+        ).useURI(
+                true
+        ).clusterHost(
+                "clusterhost"
         ).username(
                 "user"
         ).password(
@@ -31,12 +35,16 @@ class MongoDBParamsTest {
         assertThat(params).isNotNull
         assertThat(params.dbName).isEqualTo("db")
         assertThat(params.host).isEqualTo("localhost")
+        assertThat(params.useURI).isTrue()
+        assertThat(params.clusterHost).isEqualTo("clusterhost")
         assertThat(params.username).isEqualTo("user")
         assertThat(params.password).isEqualTo("pwd")
         assertThat(params.port).isEqualTo(27000)
         assertThat(params.isUsingTLS).isEqualTo(true)
         assertThat(params.authenticationDatabase).isEqualTo("admin")
         assertThat(params.authenticationMechanism).isEqualTo("SCRAM")
+
+        assertThat(params.toString()).startsWith("MongoDBParams[")
 
     }
 }
