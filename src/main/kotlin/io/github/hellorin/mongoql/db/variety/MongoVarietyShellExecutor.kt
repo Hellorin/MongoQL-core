@@ -53,10 +53,11 @@ internal open class MongoVarietyShellExecutor {
 
 open class ProcessStarter {
     open fun startAndWaitFor(parameters: List<String>): Process {
-        val processBuilder = ProcessBuilder()
+        /*val processBuilder = ProcessBuilder()
         processBuilder.command(parameters)
 
-        val process = processBuilder.start()
+        val process = processBuilder.start()*/
+        val process = Runtime.getRuntime().exec(parameters.joinToString(" "))
         process.waitFor()
 
         return process
