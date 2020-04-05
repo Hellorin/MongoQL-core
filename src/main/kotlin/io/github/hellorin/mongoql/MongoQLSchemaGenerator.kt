@@ -7,11 +7,11 @@ import io.github.hellorin.mongoql.graphql.GraphQLParams
 import io.github.hellorin.mongoql.graphql.GraphQLSchemaBuilder
 import java.lang.UnsupportedOperationException
 
-class MongoQLSchemaGenerator(
+open class MongoQLSchemaGenerator(
         private val mongoSchemaIntrospector: MongoSchemaIntrospector = VarietyMongoSchemaIntrospector(),
         private val schemaBuilder: GraphQLSchemaBuilder = GraphQLSchemaBuilder()) {
 
-    fun generate(mongoDBParams: MongoDBParams, graphQLParams: GraphQLParams): List<Type> {
+    open fun generate(mongoDBParams: MongoDBParams, graphQLParams: GraphQLParams): List<Type> {
         val introspectedMongoSchema = mongoSchemaIntrospector.readAndParseMongoSchema(mongoDBParams)
 
         return schemaBuilder.build(graphQLParams, introspectedMongoSchema)
