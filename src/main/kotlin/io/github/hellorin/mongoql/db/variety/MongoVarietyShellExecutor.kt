@@ -44,7 +44,7 @@ internal open class MongoVarietyShellExecutor {
         val filteredParameters = parameters.filter {
             !it.contains("--password")
         }
-        logger.info { "Parameters are : $parameters" }
+        logger.info { "Parameters are : $filteredParameters" }
 
         // Call process
         return processStarter.startAndWaitFor(parameters)

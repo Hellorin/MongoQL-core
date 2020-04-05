@@ -35,6 +35,8 @@ internal open class VarietyMongoSchemaIntrospector(
 
             logger.error { "Unexpected error while introspecting MongoDB database/collection. Details: $sanitizedProcessOutput" }
             throw VarietyException("Unexpected error while introspecting MongoDB database/collection")
+        } else {
+            logger.info { "Debugging: $processOutput" }
         }
 
         return processOutput
