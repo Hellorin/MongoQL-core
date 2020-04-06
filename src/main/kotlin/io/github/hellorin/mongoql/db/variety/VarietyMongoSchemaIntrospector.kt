@@ -26,6 +26,10 @@ internal open class VarietyMongoSchemaIntrospector(
             br.lines().collect(Collectors.joining(System.lineSeparator()))
         }
 
+        val processErrorOutput: String = BufferedReader(InputStreamReader(process.errorStream, Charsets.UTF_8)).use { br ->
+            br.lines().collect(Collectors.joining(System.lineSeparator()))
+        }
+
         if ("uncaught exception".toRegex().containsMatchIn(processOutput)) {
             // Sanitize output
             var sanitizedProcessOutput = processOutput.replace(
@@ -37,6 +41,7 @@ internal open class VarietyMongoSchemaIntrospector(
             throw VarietyException("Unexpected error while introspecting MongoDB database/collection")
         } else {
             logger.info { "Debugging: $processOutput" }
+            logger.info { "Error: $processErrorOutput" }
         }
 
         return processOutput
