@@ -2,6 +2,8 @@ package io.github.hellorin.mongoql.db.variety
 
 import io.github.hellorin.mongoql.db.MongoDBParams
 import mu.KotlinLogging
+import java.util.*
+
 
 internal open class MongoVarietyShellExecutor {
     private val logger = KotlinLogging.logger {}
@@ -47,15 +49,36 @@ internal open class MongoVarietyShellExecutor {
         logger.info { "Parameters are : $filteredParameters" }
 
         // Call process
-        return processStarter.startAndWaitFor(parameters)
+        return processStarter.startAndWaitFor(parameters, mongoDBParams.useEmbeddedMongoShell)
     }
 }
 
 open class ProcessStarter {
-    open fun startAndWaitFor(parameters: List<String>): Process {
-        val process = Runtime.getRuntime().exec(parameters.joinToString(" "))
+    open fun startAndWaitFor(parameters: List<String>, useEmbeddedMongoShell: Boolean): Process {
+        // Need to add mongo to path (if needed)
+        val envProps = if (useEmbeddedMongoShell) {
+            val path = this.javaClass.classLoader.getResource("bin/mongodb/").path
+
+            val env: MutableMap<String, String> = HashMap(System.getenv())
+            env["Path"] = "${env["Path"].toString()};$path"
+            mapToStringArray(env)
+        } else {
+            arrayOf()
+        }
+
+        val process = Runtime.getRuntime().exec(parameters.joinToString(" "), envProps)
         process.waitFor()
 
         return process
+    }
+
+    open fun mapToStringArray(map: MutableMap<String, String>): Array<String?> {
+        val strings = arrayOfNulls<String>(map.size)
+        var i = 0
+        for ((key, value) in map) {
+            strings[i] = "$key=$value"
+            i++
+        }
+        return strings
     }
 }

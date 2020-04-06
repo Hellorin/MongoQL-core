@@ -49,7 +49,8 @@ internal class MongoQLCoreSystemTest {
                         port = port,
                         isUsingTLS = isUsingTLS,
                         authenticationDatabase = authenticationDatabase,
-                        authenticationMechanism = authenticationMechanism
+                        authenticationMechanism = authenticationMechanism,
+                        useEmbeddedMongoShell = false
                 ).build(),
                 GraphQLParams.Builder(rootName.capitalize()).build()
         ).joinToString(separator = "\n\n")

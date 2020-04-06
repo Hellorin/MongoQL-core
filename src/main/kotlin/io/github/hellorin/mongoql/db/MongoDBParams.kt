@@ -20,7 +20,8 @@ class MongoDBParams private constructor(
         val password: String?,
         val isUsingTLS: Boolean?,
         val authenticationDatabase: String?,
-        val authenticationMechanism: String?
+        val authenticationMechanism: String?,
+        val useEmbeddedMongoShell: Boolean
 ) {
     override fun toString() =
             """MongoDBParams[
@@ -34,7 +35,8 @@ class MongoDBParams private constructor(
             password: ***,
             isUsingTLS: $isUsingTLS,
             authenticationDatabase: $authenticationDatabase,
-            authenticationMechanism: $authenticationMechanism
+            authenticationMechanism: $authenticationMechanism,
+            useEmbeddedMongoShell: $useEmbeddedMongoShell
         ]""".trimMargin()
 
 
@@ -58,7 +60,8 @@ class MongoDBParams private constructor(
             private var password: String? = null,
             private var isUsingTLS: Boolean? = null,
             private var authenticationDatabase: String? = null,
-            private var authenticationMechanism: String? = null
+            private var authenticationMechanism: String? = null,
+            private var useEmbeddedMongoShell: Boolean = false
     ) {
         /**
          * Method used to change the hostname
@@ -106,6 +109,11 @@ class MongoDBParams private constructor(
         fun authenticationMechanism(authenticationMechanism: String) = apply { this.authenticationMechanism = authenticationMechanism }
 
         /**
+         * Method used to determine if we uses the embedded mongo shell
+         */
+        fun useEmbeddedMongoShell(useEmbeddedMongoShell: Boolean) = apply { this.useEmbeddedMongoShell = useEmbeddedMongoShell }
+
+        /**
          * Build a mongoDB parameters instance class
          *
          * @return A MongoDB parameters instance
@@ -121,7 +129,8 @@ class MongoDBParams private constructor(
                 password,
                 isUsingTLS,
                 authenticationDatabase,
-                authenticationMechanism
+                authenticationMechanism,
+                useEmbeddedMongoShell
         )
     }
 }

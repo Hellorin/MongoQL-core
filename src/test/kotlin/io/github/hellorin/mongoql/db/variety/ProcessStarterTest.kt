@@ -15,11 +15,11 @@ internal class ProcessStarterTest {
 
         val osName = System.getProperty("os.name").toLowerCase()
         if (osName.startsWith("windows")) {
-            val process = processStarter.startAndWaitFor(listOf("cmd.exe", "/c", "ping 8.8.8.8"))
+            val process = processStarter.startAndWaitFor(listOf("cmd.exe", "/c", "ping 8.8.8.8"), false)
             assertThat(process).isNotNull
             assertThat(process.outputStream).isNotNull
         } else if (osName.contains("mac") || osName.contains("nix") || osName.contains("nux") || osName.contains("aix")) {
-            val process = processStarter.startAndWaitFor(listOf("false"))
+            val process = processStarter.startAndWaitFor(listOf("false"), false)
             assertThat(process).isNotNull
             assertThat(process.outputStream).isNotNull
         }
