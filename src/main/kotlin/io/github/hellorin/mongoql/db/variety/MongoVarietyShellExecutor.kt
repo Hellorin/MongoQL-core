@@ -57,13 +57,13 @@ open class ProcessStarter {
     open fun startAndWaitFor(parameters: List<String>, useEmbeddedMongoShell: Boolean): Process {
         // Need to add mongo to path (if needed)
         val envProps = if (useEmbeddedMongoShell) {
-            val path = this.javaClass.classLoader.getResource("bin/mongodb/").path
+            val path = this.javaClass.classLoader.getResource("/bin/mongodb/").path
 
             val env: MutableMap<String, String> = HashMap(System.getenv())
             env["Path"] = "${env["Path"].toString()};$path"
             mapToStringArray(env)
         } else {
-            arrayOf()
+            mapToStringArray(HashMap(System.getenv()))
         }
 
         val process = Runtime.getRuntime().exec(parameters.joinToString(" "), envProps)
