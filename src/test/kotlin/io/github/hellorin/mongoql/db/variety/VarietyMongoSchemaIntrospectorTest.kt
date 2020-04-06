@@ -26,7 +26,8 @@ class VarietyMongoSchemaIntrospectorTest {
         val byteInputStream = """
             uncaught exception
             """.byteInputStream(Charsets.UTF_8)
-        val process = getProcess(byteInputStream)
+        val byteErrorStream = "".byteInputStream(Charsets.UTF_8)
+        val process = getProcess(byteInputStream, byteErrorStream)
 
         val shellExecutor = object : MongoVarietyShellExecutor() {
             override fun execute(
@@ -53,7 +54,8 @@ class VarietyMongoSchemaIntrospectorTest {
         val byteInputStream = """
             [{"_id":{"key":""},"value":{"types":{}},"totalOccurrences":0,"percentContaining":0.0}]
             """.byteInputStream(Charsets.UTF_8)
-        val process = getProcess(byteInputStream)
+        val byteErrorStream = "".byteInputStream(Charsets.UTF_8)
+        val process = getProcess(byteInputStream, byteErrorStream)
 
         val shellExecutor = object : MongoVarietyShellExecutor() {
             override fun execute(
@@ -72,7 +74,7 @@ class VarietyMongoSchemaIntrospectorTest {
     }
 }
 
-private fun getProcess(byteInputStream: ByteArrayInputStream) : Process {
+private fun getProcess(byteInputStream: ByteArrayInputStream, byteErrorStream : ByteArrayInputStream) : Process {
     return object : Process() {
         override fun destroy() {
             // not required
@@ -90,9 +92,7 @@ private fun getProcess(byteInputStream: ByteArrayInputStream) : Process {
         }
 
         // not required
-        override fun getErrorStream(): InputStream {
-            throw NotImplementedError("getErrorStream")
-        }
+        override fun getErrorStream(): InputStream = byteErrorStream
 
         override fun getInputStream(): InputStream = byteInputStream
     }
