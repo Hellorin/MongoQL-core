@@ -55,7 +55,6 @@ internal open class MongoVarietyShellExecutor {
 
 open class ProcessStarter {
     open fun startAndWaitFor(parameters: List<String>): Process {
-        // Need to add mongo to path (if needed)
         val envProps = mapToStringArray(HashMap(System.getenv()))
 
         val process = Runtime.getRuntime().exec(parameters.joinToString(" "), envProps)
