@@ -49,26 +49,14 @@ internal open class MongoVarietyShellExecutor {
         logger.info { "Parameters are : $filteredParameters" }
 
         // Call process
-        return processStarter.startAndWaitFor(parameters, mongoDBParams.useEmbeddedMongoShell)
+        return processStarter.startAndWaitFor(parameters)
     }
 }
 
 open class ProcessStarter {
-    open fun startAndWaitFor(parameters: List<String>, useEmbeddedMongoShell: Boolean): Process {
+    open fun startAndWaitFor(parameters: List<String>): Process {
         // Need to add mongo to path (if needed)
-        val envProps = if (useEmbeddedMongoShell) {
-            //chmod +x
-            val resource = this.javaClass.classLoader.getResource("bin/mongodb/")
-            Runtime.getRuntime().exec("chmod +x ${resource.path}/mongo")
-
-            val path = resource.path
-
-            val env: MutableMap<String, String> = HashMap(System.getenv())
-            env["Path"] = "${env["Path"].toString()};$path"
-            mapToStringArray(env)
-        } else {
-            mapToStringArray(HashMap(System.getenv()))
-        }
+        val envProps = mapToStringArray(HashMap(System.getenv()))
 
         val process = Runtime.getRuntime().exec(parameters.joinToString(" "), envProps)
         process.waitFor()

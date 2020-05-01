@@ -71,7 +71,7 @@ internal class MongoVarietyShellExecutorTest {
     private fun getProcess(expectedList : List<String>) : ProcessStarter {
         return object : ProcessStarter() {
 
-            override fun startAndWaitFor(parameters: List<String>, useEmbeddedMongoShell: Boolean): Process {
+            override fun startAndWaitFor(parameters: List<String>): Process {
 
                 if (parameters != expectedList) throw IllegalArgumentException()
 
