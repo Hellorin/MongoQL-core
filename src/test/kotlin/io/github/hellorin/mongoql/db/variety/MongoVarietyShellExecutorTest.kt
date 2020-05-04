@@ -56,7 +56,7 @@ internal class MongoVarietyShellExecutorTest {
                 "--quiet",
                 "--outputFormat=json",
                 "--host=localhost",
-                "--tls",
+                "--ssl",
                 "--authenticationDatabase=admin",
                 "--authenticationMechanism=SCRAM",
                 "--username=user",

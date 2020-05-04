@@ -23,7 +23,7 @@ internal open class VarietyMongoSchemaIntrospector(
         val process = mongoShellExecutor.execute(mongoDBParams)
 
         val processOutput: String = BufferedReader(InputStreamReader(process.inputStream, Charsets.UTF_8)).use { br ->
-            br.lines().collect(Collectors.joining(System.lineSeparator()))
+            br.lines().skip(1).collect(Collectors.joining(System.lineSeparator()))
         }
 
         val processErrorOutput: String = BufferedReader(InputStreamReader(process.errorStream, Charsets.UTF_8)).use { br ->

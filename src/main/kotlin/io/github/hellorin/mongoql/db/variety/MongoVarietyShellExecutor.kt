@@ -23,7 +23,7 @@ internal open class MongoVarietyShellExecutor {
 
         mongoDBParams.host?.let { parameters.add("--host=$it") }
         mongoDBParams.port?.let { parameters.add("--port=$it") }
-        mongoDBParams.isUsingTLS?.let { if (it) parameters.add("--tls") }
+        mongoDBParams.isUsingTLS?.let { if (it) parameters.add("--ssl") }
         mongoDBParams.authenticationDatabase?.let { parameters.add("--authenticationDatabase=$it") }
         mongoDBParams.authenticationMechanism?.let { parameters.add("--authenticationMechanism=$it") }
 
