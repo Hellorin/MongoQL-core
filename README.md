@@ -138,6 +138,7 @@ There might be schema with sub documents that are the same as other documents. O
 
 ## Donate
 If you enjoyed this projet, don't hesitate to pay me a coffee ;)
+
 <a href='https://ko-fi.com/J3J71OEDT' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi2.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 ## Technologies
