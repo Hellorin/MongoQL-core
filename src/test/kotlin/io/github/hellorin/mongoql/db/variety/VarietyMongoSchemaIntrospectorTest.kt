@@ -52,7 +52,7 @@ class VarietyMongoSchemaIntrospectorTest {
         }
 
         val byteInputStream = """
-            [{"_id":{"key":""},"value":{"types":{}},"totalOccurrences":0,"percentContaining":0.0}]
+            {"_id":{"key":""},"value":{"types":{}},"totalOccurrences":0,"percentContaining":0.0}]
             """.byteInputStream(Charsets.UTF_8)
         val byteErrorStream = "".byteInputStream(Charsets.UTF_8)
         val process = getProcess(byteInputStream, byteErrorStream)
