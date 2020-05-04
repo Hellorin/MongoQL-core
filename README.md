@@ -136,6 +136,10 @@ The tool used to introspect the MongoDB schema of a collection isn't precise eno
 ### Type recognition
 There might be schema with sub documents that are the same as other documents. One could determine an fields equivalence between types found to regroup into one type. In the full example above, the type **Child** is most probably a type Person and it should be only one type rather than two.
 
+## Donate
+If you enjoyed this projet, don't hesitate to pay me a coffee ;)
+<a href='https://ko-fi.com/J3J71OEDT' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi2.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
 ## Technologies
 - Kotlin
 - Mockito
