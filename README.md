@@ -1,7 +1,5 @@
 # MongoQL-core
-[![Build Status](https://travis-ci.com/Hellorin/MongoQL-core.svg?branch=master)](https://travis-ci.com/Hellorin/MongoQL-core)
 [![codecov](https://codecov.io/gh/Hellorin/MongoQL-core/branch/master/graph/badge.svg)](https://codecov.io/gh/Hellorin/MongoQL-core)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Hellorin_MongoQL-core&metric=alert_status)](https://sonarcloud.io/dashboard?id=Hellorin_MongoQL-core)
 
 ## Purpose
 In a nutshell, the purpose of this tool is to generate a GraphQL schema based on a MongoDB's collection.
